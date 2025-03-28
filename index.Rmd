@@ -7,4 +7,84 @@ output:
         toc_float: TRUE
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE)
+library(plotly)
+library(tidyverse)
+
+# Source the data processing script
+source("process_starbucks_data.R")
+```
+
 This is my JSC370 Final Project website.
+
+
+```{r create_plot1, echo=FALSE}
+# Create first plot - Store locations map (with corrected column references)
+p1_map <- starbucks %>%
+  sample_n(min(1000, nrow(starbucks))) %>% # Sample to improve performance
+  plot_ly(
+    lat = ~Latitude,
+    lon = ~Longitude,
+    type = 'scattergeo',
+    mode = 'markers',
+    marker = list(
+      size = 4,
+      color = 'darkgreen',
+      opacity = 0.7
+    ),
+    text = ~paste(
+      "State:", State
+      # Only include fields we know exist
+    ),
+    hoverinfo = "text"
+  ) %>%
+  layout(
+    title = "Starbucks Locations Across the US",
+    geo = list(
+      scope = 'usa',
+      projection = list(type = 'albers usa'),
+      showland = TRUE,
+      landcolor = 'rgb(243, 243, 243)',
+      countrycolor = 'rgb(204, 204, 204)'
+    )
+  )
+
+```
+
+```{r create_plot2}
+# Create second plot - Top 15 states by number of stores
+p2_bars <- starbucks_by_state %>%
+  arrange(desc(n_stores)) %>%
+  head(15) %>%
+  plot_ly(
+    x = ~reorder(State, n_stores),
+    y = ~n_stores,
+    type = "bar",
+    marker = list(color = "darkgreen"),
+    text = ~paste(
+      "State:", State,
+      "<br>Stores:", n_stores
+    ),
+    hoverinfo = "text"
+  ) %>%
+  layout(
+    title = "Number of Starbucks Stores by State (Top 15)",
+    xaxis = list(title = "State", tickangle = 45),
+    yaxis = list(title = "Number of Stores")
+  )
+
+```
+## Showcasing plots {.tabset}
+
+### Figure 1
+
+```{r echo=FALSE}
+p1_map
+```
+
+### Figure 2
+
+```{r echo=FALSE}
+p2_bars
+```
