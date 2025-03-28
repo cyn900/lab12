@@ -28,7 +28,7 @@ starbucks_by_state <- starbucks %>%
   summarize(n_stores = n())
 
 # need state abbreviations
-usa_pop_abbr <- 
+usa_pop_abbr <-
   full_join(usa_pop, usa_states, by = c("state" = "State"))
 
 # Fix the join - using State from starbucks_by_state to match with Abbreviation from usa_pop_abbr
