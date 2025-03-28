@@ -1,0 +1,10 @@
+name: "my-website"
+output_dir: "."
+navbar:
+  title: "My Website"
+  left:
+    - text: "Home"
+      href: https://github.com/cyn900/JSC370_lab12
+output:
+  html_document:
+    theme: cosmo
