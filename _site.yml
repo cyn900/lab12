@@ -8,3 +8,9 @@ navbar:
 output:
   html_document:
     theme: cosmo
+    self_contained: true
+    toc: TRUE
+    toc_float: TRUE
+    includes:
+      in_header:
+        - header.html
