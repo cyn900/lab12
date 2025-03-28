@@ -4,13 +4,11 @@ navbar:
   title: "My Website"
   left:
     - text: "Home"
-      href: https://github.com/cyn900/JSC370_lab12
+      href: index.html
 output:
   html_document:
     theme: cosmo
     self_contained: true
     toc: TRUE
     toc_float: TRUE
-    includes:
-      in_header:
-        - header.html
+    lib_dir: libs

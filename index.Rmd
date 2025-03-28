@@ -3,6 +3,7 @@ title: "JSC370 Final Project"
 author: "Cynthia Zhou"
 output: 
     html_document:
+        self_contained: true
         toc: TRUE
         toc_float: TRUE
 ---
@@ -18,9 +19,8 @@ source("process_starbucks_data.R")
 
 This is my JSC370 Final Project website.
 
-
-```{r create_plot1, echo=FALSE}
-# Create first plot - Store locations map (with corrected column references)
+```{r create_plot1, echo=FALSE, warning=FALSE, message=FALSE}
+# Create first plot - Store locations map
 p1_map <- starbucks %>%
   sample_n(min(1000, nrow(starbucks))) %>% # Sample to improve performance
   plot_ly(
@@ -35,7 +35,6 @@ p1_map <- starbucks %>%
     ),
     text = ~paste(
       "State:", State
-      # Only include fields we know exist
     ),
     hoverinfo = "text"
   ) %>%
@@ -49,10 +48,9 @@ p1_map <- starbucks %>%
       countrycolor = 'rgb(204, 204, 204)'
     )
   )
-
 ```
 
-```{r create_plot2}
+```{r create_plot2, echo=FALSE, warning=FALSE, message=FALSE}
 # Create second plot - Top 15 states by number of stores
 p2_bars <- starbucks_by_state %>%
   arrange(desc(n_stores)) %>%
@@ -73,8 +71,8 @@ p2_bars <- starbucks_by_state %>%
     xaxis = list(title = "State", tickangle = 45),
     yaxis = list(title = "Number of Stores")
   )
-
 ```
+
 ## Showcasing plots {.tabset}
 
 ### Figure 1
